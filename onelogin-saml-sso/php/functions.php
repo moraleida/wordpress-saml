@@ -356,53 +356,61 @@ function initialize_saml() {
 	return $auth;
 }
 
-// Prevent that the user change important fields
-class preventLocalChanges
-{
-	function __construct()
-	{
-		if (get_option('onelogin_saml_customize_action_prevent_change_mail', false)) {
-			add_action('admin_footer', array($this, 'disable_email'));
-		}
-		if (get_option('onelogin_saml_customize_action_prevent_change_password', false)) {
-			add_action('admin_footer', array($this, 'disable_password'));
-		}
-	}
-
-	function disable_email()
-	{
-		global $pagenow;
-		if ($pagenow == 'profile.php' && !current_user_can( 'manage_options' )) {
-
-			?>
-			<script>
-				jQuery(document).ready(function ($) {
-					if ($('input[name=email]').length) {
-						$('input[name=email]').attr("disabled", "disabled");
-					}
-
-				});
-			</script>
-		<?php
-		}
-	}
-
-	function disable_password()
-	{
-		global $pagenow;
-		if ($pagenow == 'profile.php' && !current_user_can( 'manage_options' )) {
-
-			?>
-			<script>
-				jQuery(document).ready(function ($) {
-					$('tr[id=password]').hide();
-					$('tr[id=password]').next().hide();
-				});
-			</script>
-		<?php
-		}
-	}
-
-}
-
-$preventLocalChanges = new preventLocalChanges();
+/**
+ * Class removed.
+ * It was causing erros on the admin_footer hook and disabling
+ * VIP plugins all together.
+ *
+ * Ricardo Moraleida
+ *
+ * // Prevent that the user change important fields
+ * class preventLocalChanges
+ * {
+ * function __construct()
+	* {
+		* if (get_option('onelogin_saml_customize_action_prevent_change_mail', false)) {
+			* add_action('admin_footer', array($this, 'disable_email'));
+		* }
+		* if (get_option('onelogin_saml_customize_action_prevent_change_password', false)) {
+			* add_action('admin_footer', array($this, 'disable_password'));
+		* }
+	* }
+ *
+* function disable_email()
+	* {
+		* global $pagenow;
+		* if ($pagenow == 'profile.php' && !current_user_can( 'manage_options' )) {
+ *
+* ?>
+			* <script>
+				* jQuery(document).ready(function ($) {
+					* if ($('input[name=email]').length) {
+						* $('input[name=email]').attr("disabled", "disabled");
+					* }
+ *
+* });
+			* </script>
+		* <?php
+		* }
+	* }
+ *
+* function disable_password()
+	* {
+		* global $pagenow;
+		* if ($pagenow == 'profile.php' && !current_user_can( 'manage_options' )) {
+ *
+* ?>
+			* <script>
+				* jQuery(document).ready(function ($) {
+					* $('tr[id=password]').hide();
+					* $('tr[id=password]').next().hide();
+				* });
+			* </script>
+		* <?php
+		* }
+	* }
+ *
+* }
+ *
+* //$preventLocalChanges = new preventLocalChanges();
+*/
